@@ -1,0 +1,183 @@
+/* ==========================================================================
+   FLORALIA STUDIO - MINI-GAMES & DYNAMICS STYLES
+   ========================================================================== */
+
+/* Game Modal Container */
+.game-modal-card {
+  max-width: 760px;
+}
+
+.games-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 28px 12px;
+}
+
+.game-tab-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border-glass-light);
+  background: var(--bg-glass);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-smooth);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-tab-btn:hover {
+  background: var(--bg-glass-strong);
+  color: var(--text-cream);
+}
+
+.game-tab-btn.active {
+  background: linear-gradient(135deg, rgba(255, 209, 59, 0.25), rgba(245, 158, 11, 0.35));
+  border-color: var(--primary-gold);
+  color: var(--primary-gold);
+}
+
+/* ----------------- GAME 1: DAISY ORACLE ----------------- */
+.daisy-oracle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-height: 380px;
+  justify-content: center;
+  position: relative;
+}
+
+.daisy-result-text {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-style: italic;
+  color: var(--primary-gold);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-shadow: 0 0 12px var(--primary-gold-glow);
+  transition: all 0.3s ease;
+}
+
+.daisy-svg-container {
+  width: 280px;
+  height: 280px;
+  position: relative;
+  cursor: pointer;
+}
+
+.daisy-petal {
+  cursor: pointer;
+  transition: transform 0.4s var(--ease-spring), opacity 0.4s ease;
+  transform-origin: 140px 140px;
+}
+
+.daisy-petal:hover {
+  filter: drop-shadow(0 0 8px rgba(255, 230, 100, 0.8));
+}
+
+.daisy-petal.plucked {
+  opacity: 0;
+  transform: scale(0.2) translate(0, 150px) rotate(45deg);
+  pointer-events: none;
+}
+
+.daisy-center {
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+}
+
+.oracle-instruction {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ----------------- GAME 2: PETAL CATCHER ----------------- */
+.petal-catcher-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #1e1338 0%, #0c0818 100%);
+  border: 1px solid var(--border-glass);
+}
+
+#petal-catcher-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.petal-catcher-hud {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.score-badge {
+  background: rgba(15, 10, 28, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glass);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--primary-gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-start-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 5, 15, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ----------------- GAME 3: CONSTELLATION ----------------- */
+.constellation-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #0e122b 0%, #050611 100%);
+  border: 1px solid var(--border-glass);
+}
+
+#constellation-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+.constellation-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 10, 28, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}

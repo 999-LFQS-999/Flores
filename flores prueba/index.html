@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Un Detalle Especial Para Ti 🌼</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Floating background fireflies -->
+  <div class="bg-fireflies" id="fireflies-container"></div>
+
+  <div class="intro-container">
+    <div class="glowing-flower-icon">🌻</div>
+    <h1 class="intro-title">Tienes un regalo esperándote Noelia</h1>
+    <p class="intro-subtitle">
+      Un detalle lleno de luz, flores amarillas y cariño preparado especialmente para ti. ✨
+    </p>
+
+    <a href="flower.html" class="btn-reveal" id="btn-reveal">
+      <span>Toca aquí para ver tus flores</span> 🌼
+    </a>
+  </div>
+
+  <script>
+    // Create animated floating fireflies in background
+    const container = document.getElementById('fireflies-container');
+    if (container) {
+      for (let i = 0; i < 25; i++) {
+        const fly = document.createElement('div');
+        fly.className = 'firefly';
+        fly.style.left = `${Math.random() * 100}%`;
+        fly.style.animationDelay = `${Math.random() * 6}s`;
+        fly.style.animationDuration = `${6 + Math.random() * 6}s`;
+        container.appendChild(fly);
+      }
+    }
+
+    // Preserve URL parameters when clicking the button
+    const btn = document.getElementById('btn-reveal');
+    if (btn && window.location.search) {
+      btn.href = 'flower.html' + window.location.search;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+/* ==========================================================================
+   FLORALIA STUDIO - BOUQUET STUDIO (TALLER DE RAMOS) STYLES
+   ========================================================================== */
+
+.bouquet-modal-card {
+  max-width: 900px;
+  height: 85vh;
+}
+
+.bouquet-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  height: 100%;
+}
+
+/* Bouquet Visual Preview Canvas/Stage */
+.bouquet-stage-container {
+  background: radial-gradient(circle at center, rgba(50, 30, 80, 0.6) 0%, rgba(15, 10, 28, 0.95) 100%);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+}
+
+.bouquet-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#bouquet-canvas {
+  max-width: 100%;
+  max-height: 100%;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.6));
+  transition: transform 0.3s ease;
+}
+
+/* Floating sparkle effects inside stage */
+.stage-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Fairy lights toggle overlay inside stage */
+.stage-fairy-lights {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 40% 45%, rgba(255, 230, 120, 0.25) 0%, transparent 40%),
+              radial-gradient(circle at 60% 35%, rgba(255, 200, 80, 0.2) 0%, transparent 35%),
+              radial-gradient(circle at 50% 60%, rgba(255, 240, 150, 0.3) 0%, transparent 30%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: fairyGaze 3s infinite alternate ease-in-out;
+}
+
+.stage-fairy-lights.active {
+  opacity: 1;
+}
+
+@keyframes fairyGaze {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.4); }
+}
+
+/* Stage controls */
+.stage-actions {
+  position: absolute;
+  bottom: 12px;
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+}
+
+.stage-btn {
+  background: rgba(15, 10, 28, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glass);
+  color: var(--text-cream);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.stage-btn:hover {
+  border-color: var(--primary-gold);
+  color: var(--primary-gold);
+  transform: translateY(-2px);
+}
+
+/* Bouquet Customizer Options (Right Column) */
+.bouquet-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.section-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--primary-gold);
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Flower Selector Grid */
+.flower-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.flower-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-glass-light);
+  border-radius: 16px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+}
+
+.flower-card:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--primary-gold);
+  transform: translateY(-3px);
+}
+
+.flower-card.selected {
+  border-color: var(--primary-gold);
+  background: rgba(255, 209, 59, 0.15);
+  box-shadow: 0 0 12px var(--primary-gold-glow);
+}
+
+.flower-card .flower-emoji {
+  font-size: 1.8rem;
+}
+
+.flower-card .flower-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-cream);
+}
+
+.flower-card .flower-count-badge {
+  font-size: 0.68rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 10px;
+  color: var(--primary-gold);
+}
+
+/* Wrap & Ribbon Option Pills */
+.wrap-picker-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.wrap-option-pill {
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border-glass-light);
+  background: var(--bg-surface);
+  color: var(--text-cream);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.wrap-option-pill .color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.wrap-option-pill:hover {
+  border-color: var(--primary-gold);
+  transform: translateY(-2px);
+}
+
+.wrap-option-pill.selected {
+  border-color: var(--primary-gold);
+  background: rgba(255, 209, 59, 0.2);
+  color: var(--primary-gold);
+}
+
+/* Extra decorations toggle row */
+.decorations-row {
+  display: flex;
+  gap: 12px;
+}
+
+.toggle-chip {
+  flex: 1;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid var(--border-glass-light);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.toggle-chip:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-cream);
+}
+
+.toggle-chip.active {
+  background: rgba(255, 209, 59, 0.2);
+  border-color: var(--primary-gold);
+  color: var(--primary-gold);
+}
+
+/* Gift card dedicatoria attached to bouquet */
+.bouquet-tag-input {
+  width: 100%;
+  background: rgba(10, 6, 20, 0.6);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  color: var(--text-cream);
+  padding: 10px 14px;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  resize: none;
+  outline: none;
+}
+
+.bouquet-tag-input:focus {
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 10px var(--primary-gold-glow);
+}
+
+@media (max-width: 800px) {
+  .bouquet-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .bouquet-canvas-wrapper {
+    height: 260px;
+  }
+}

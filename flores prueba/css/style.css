@@ -1,0 +1,118 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-gold: #ffd700;
+  --dark-bg: #07050f;
+}
+
+body {
+  background: radial-gradient(ellipse at 50% 30%, #1e1038 0%, #0d061c 55%, #05020c 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+}
+
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  z-index: 10;
+  padding: 30px;
+  max-width: 600px;
+  animation: fadeInDown 1.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.glowing-flower-icon {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.8));
+  animation: floatFlower 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatFlower {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  100% { transform: translateY(-12px) rotate(8deg) scale(1.08); }
+}
+
+.intro-title {
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ffffff 20%, #ffd700 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.intro-subtitle {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.btn-reveal {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ffe066 0%, #f59e0b 100%);
+  color: #2b1500;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.5), 0 0 20px rgba(255, 215, 0, 0.6);
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-reveal:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(245, 158, 11, 0.8), 0 0 35px rgba(255, 215, 0, 0.9);
+}
+
+.btn-reveal:active {
+  transform: scale(0.96);
+}
+
+/* Background floating fireflies */
+.bg-fireflies {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffd700, 0 0 20px #ffe600;
+  animation: flyAround 8s infinite linear;
+}
+
+@keyframes flyAround {
+  0% { transform: translateY(100vh) translateX(0) scale(0.5); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(-10vh) translateX(50px) scale(1.2); opacity: 0; }
+}

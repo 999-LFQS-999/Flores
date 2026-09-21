@@ -1,0 +1,144 @@
+/* ==========================================================================
+   FLORALIA STUDIO - SURPRISE UNBOXING EXPERIENCE STYLES
+   ========================================================================== */
+
+.unboxing-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: radial-gradient(circle at center, #1b0f30 0%, #080410 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-smooth);
+}
+
+.unboxing-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.unboxing-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  z-index: 10;
+}
+
+.unboxing-title {
+  font-family: var(--font-editorial);
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
+  text-align: center;
+  color: var(--primary-gold);
+  text-shadow: 0 0 20px var(--primary-gold-glow);
+  animation: floatSlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatSlow {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+/* 3D Gift Box */
+.gift-box-3d {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.gift-box-3d:hover {
+  transform: scale(1.06);
+}
+
+.box-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7e22ce 0%, #4c1d95 100%);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), inset 0 2px 6px rgba(255, 255, 255, 0.3);
+  position: relative;
+  border: 2px solid rgba(255, 215, 64, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gold Ribbon vertical and horizontal */
+.ribbon-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  background: linear-gradient(90deg, #ffd700, #f59e0b, #ffd700);
+  box-shadow: 0 0 14px rgba(255, 215, 64, 0.6);
+}
+
+.ribbon-h {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 44px;
+  background: linear-gradient(180deg, #ffd700, #f59e0b, #ffd700);
+  box-shadow: 0 0 14px rgba(255, 215, 64, 0.6);
+}
+
+/* Golden Bow Tie */
+.ribbon-bow {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+  animation: bowGlow 2s infinite alternate ease-in-out;
+}
+
+@keyframes bowGlow {
+  0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5)); }
+  100% { transform: translateX(-50%) scale(1.1); filter: drop-shadow(0 12px 24px rgba(255, 215, 64, 0.8)); }
+}
+
+/* Untie prompt */
+.tap-to-open-prompt {
+  background: rgba(255, 215, 64, 0.18);
+  border: 1px solid var(--primary-gold);
+  color: var(--primary-gold);
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--primary-gold-glow);
+  animation: pulseButton 1.5s infinite;
+}
+
+@keyframes pulseButton {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--primary-gold-glow); }
+  50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 64, 0.8); }
+}
+
+/* Particle canvas for fireworks/burst on open */
+#unboxing-particle-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}

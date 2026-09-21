@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Floralia Studio 🌸 Universo Floral Interactivo & Suite de Regalos</title>
+  <meta name="description" content="Una experiencia floral inmersiva en 3D con mundos interactivos, taller de ramos personalizados, cartas con sello de cera, música relajante y regalos sorpresa.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/garden.css">
+  <link rel="stylesheet" href="css/bouquet.css">
+  <link rel="stylesheet" href="css/letter.css">
+  <link rel="stylesheet" href="css/games.css">
+  <link rel="stylesheet" href="css/unboxing.css">
+</head>
+<body>
+
+  <!-- ================= 3D VIEWPORT CANVAS ================= -->
+  <canvas id="viewport-canvas" aria-label="Jardín Floral Interactivo 3D"></canvas>
+
+  <!-- ================= TOP NAVIGATION ================= -->
+  <nav class="top-nav">
+    <div class="brand" id="brand-home">
+      <span class="brand-icon">🌻</span>
+      <span class="brand-title">FLORALIA</span>
+      <span class="brand-badge">STUDIO</span>
+    </div>
+
+    <div class="dedication-badge" id="dedication-header-badge">
+      <div class="dedication-title" id="dedication-header-title">Feliz Día de la Primavera 🌼</div>
+      <div class="dedication-sub">Flores amarillas que iluminan el alma</div>
+    </div>
+
+    <div class="quick-controls">
+      <button class="btn-icon" id="btn-toggle-music" title="Activar / Desactivar Música 🎵">
+        🎵
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= FLOATING WORLD SELECTOR (LEFT) ================= -->
+  <aside class="world-selector-bar" aria-label="Seleccionar Mundo 3D">
+    <button class="world-btn active" data-world="sunflower" title="Campo de Girasoles">
+      🌻
+      <span class="tooltip">Campo de Girasoles</span>
+    </button>
+    <button class="world-btn" data-world="heart" title="Corazón Radiante 3D">
+      💛
+      <span class="tooltip">Corazón Radiante</span>
+    </button>
+    <button class="world-btn" data-world="rose" title="Bosque de Rosas">
+      🌹
+      <span class="tooltip">Bosque de Rosas</span>
+    </button>
+    <button class="world-btn" data-world="sakura" title="Cerezo Zen Sakura">
+      🌸
+      <span class="tooltip">Jardín de Sakura</span>
+    </button>
+    <button class="world-btn" data-world="cosmos" title="Noche Cósmica">
+      ✨
+      <span class="tooltip">Prado Cósmico</span>
+    </button>
+  </aside>
+
+  <!-- ================= FLOATING GARDEN CONTROLS (RIGHT) ================= -->
+  <aside class="garden-controls-bar" aria-label="Controles de Escena">
+    <button class="control-btn" id="btn-toggle-lighting" title="Cambiar Iluminación (Atardecer / Día / Noche)">
+      ☀️
+      <span class="tooltip">Cambiar Luz</span>
+    </button>
+    <button class="control-btn" id="btn-toggle-camera" title="Cámara Cinemática Automática">
+      🎬
+      <span class="tooltip">Modo Cinemático</span>
+    </button>
+    <button class="control-btn" id="btn-take-snapshot" title="Tomar Fotografía Floral 📸">
+      📸
+      <span class="tooltip">Foto HD</span>
+    </button>
+  </aside>
+
+  <!-- ================= INTERACTIVE HINT BADGE ================= -->
+  <div class="plant-instruction">
+    <span class="sparkle">✨</span>
+    <span>Haz clic en el suelo para plantar flores al instante</span>
+    <span class="sparkle">✨</span>
+  </div>
+
+  <!-- ================= QUOTE / DEDICATION BUBBLE ================= -->
+  <div class="quote-bubble-container">
+    <div class="quote-bubble">
+      <div class="quote-text" id="quote-text">"Hoy te regalo flores amarillas para que tu primavera nunca se acabe."</div>
+      <div class="quote-author" id="quote-author">— Tradición Floral</div>
+      <div class="quote-actions">
+        <button class="quote-action-btn" id="btn-next-quote">
+          <span>Siguiente Dedicatoria</span> 🌼
+        </button>
+        <button class="quote-action-btn" id="btn-quote-plant-burst">
+          <span>Florecer Alrededor</span> ✨
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BOTTOM DOCK NAVIGATION ================= -->
+  <div class="bottom-dock-container">
+    <div class="bottom-dock">
+      <button class="dock-item active" data-mode="garden">
+        <span class="dock-emoji">🌿</span>
+        <span>Jardín 3D</span>
+      </button>
+      <button class="dock-item" data-mode="bouquet">
+        <span class="dock-emoji">💐</span>
+        <span>Taller Ramos</span>
+      </button>
+      <button class="dock-item" data-mode="letter">
+        <span class="dock-emoji">💌</span>
+        <span>Carta & Sello</span>
+      </button>
+      <div class="dock-divider"></div>
+      <button class="dock-item" data-mode="games">
+        <span class="dock-emoji">🎮</span>
+        <span>Mini-Juegos</span>
+      </button>
+      <button class="dock-item" data-mode="surprise">
+        <span class="dock-emoji">🎁</span>
+        <span>Regalo 3D</span>
+      </button>
+      <button class="dock-item" data-mode="share">
+        <span class="dock-emoji">🔗</span>
+        <span>Compartir</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 1: TALLER DE RAMOS (BOUQUET STUDIO) ================= -->
+  <div class="modal-backdrop" id="modal-bouquet">
+    <div class="modal-card bouquet-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span style="font-size: 1.6rem;">💐</span>
+          <h2 class="modal-title">Taller de Ramos Florales</h2>
+        </div>
+        <button class="btn-close" title="Cerrar">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="bouquet-layout">
+          <!-- Stage / Preview -->
+          <div class="bouquet-stage-container">
+            <div class="stage-fairy-lights active" id="stage-fairy-lights"></div>
+            <div class="bouquet-canvas-wrapper">
+              <canvas id="bouquet-canvas"></canvas>
+            </div>
+            <div class="stage-actions">
+              <button class="stage-btn" id="btn-download-bouquet">
+                <span>Descargar PNG</span> 📥
+              </button>
+              <button class="stage-btn" id="btn-reset-bouquet">
+                <span>Restaurar</span> 🔄
+              </button>
+            </div>
+          </div>
+
+          <!-- Controls panel -->
+          <div class="bouquet-controls-panel">
+            <!-- Flower Variety Picker -->
+            <div>
+              <div class="section-label">1. Flores para tu Ramo (Toca para añadir/quitar)</div>
+              <div class="flower-picker-grid" id="flower-picker-grid">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- Wrap Paper Style -->
+            <div>
+              <div class="section-label">2. Papel de Envoltura de Lujo</div>
+              <div class="wrap-picker-row">
+                <button class="wrap-option-pill selected" data-wrap="kraft">
+                  <span class="color-dot" style="background: #bc6c25;"></span>
+                  <span>Papel Kraft</span>
+                </button>
+                <button class="wrap-option-pill" data-wrap="gold">
+                  <span class="color-dot" style="background: #facc15;"></span>
+                  <span>Oro Imperial</span>
+                </button>
+                <button class="wrap-option-pill" data-wrap="pink">
+                  <span class="color-dot" style="background: #f472b6;"></span>
+                  <span>Seda Rosa</span>
+                </button>
+                <button class="wrap-option-pill" data-wrap="black">
+                  <span class="color-dot" style="background: #18181b;"></span>
+                  <span>Negro Elegante</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Extra effects -->
+            <div>
+              <div class="section-label">3. Detalles & Luz</div>
+              <div class="decorations-row">
+                <button class="toggle-chip active" id="toggle-fairy-lights">
+                  <span>✨ Luces LED Fairy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Attached Card Tag -->
+            <div>
+              <div class="section-label">4. Mensaje en la Tarjeta Colgante</div>
+              <input type="text" class="bouquet-tag-input" id="bouquet-tag-input" maxlength="30" value="Para alguien muy especial 🌼" placeholder="Dedicatoria corta...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="app.closeAllModals()">Listo 🌻</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: ESTUDIO DE CARTAS CON SELLO DE CERA ================= -->
+  <div class="modal-backdrop" id="modal-letter">
+    <div class="modal-card letter-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span style="font-size: 1.6rem;">💌</span>
+          <h2 class="modal-title">Estudio de Cartas & Lacre Real</h2>
+        </div>
+        <button class="btn-close" title="Cerrar">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="letter-studio-wrapper">
+          <!-- Inspiration Categories -->
+          <div class="letter-categories">
+            <button class="category-chip active" data-category="amarillas">🌻 Flores Amarillas</button>
+            <button class="category-chip" data-category="romance">💖 Amor Romántico</button>
+            <button class="category-chip" data-category="amistad">✨ Amistad & Gratitud</button>
+            <button class="category-chip" data-category="neruda">📜 Poemas Célebres</button>
+          </div>
+
+          <!-- Font selector -->
+          <div class="font-switcher">
+            <button class="font-btn active" data-font="serif">Serif Clásico</button>
+            <button class="font-btn" data-font="calligraphy">Caligrafía Manuscrita</button>
+            <button class="font-btn" data-font="typewriter">Máquina de Escribir</button>
+          </div>
+
+          <!-- Luxury Parchment Sheet -->
+          <div class="parchment-sheet">
+            <div class="parchment-inner-border"></div>
+
+            <div class="parchment-header">
+              <input type="text" class="parchment-recipient-input" id="parchment-recipient" value="Para mi persona favorita," placeholder="Para: Nombre...">
+              <span class="parchment-date">Primavera 🌼</span>
+            </div>
+
+            <textarea class="parchment-textarea" id="parchment-text" placeholder="Escribe tus palabras desde el corazón...">Hoy te regalo flores amarillas para que tu primavera nunca se acabe y tu camino siempre esté lleno de luz, sonrisas y momentos inolvidables.</textarea>
+
+            <!-- Polaroid memory preview -->
+            <div class="polaroid-frame" title="Haz clic en la foto para cambiar de recuerdo">
+              <div class="polaroid-washi-tape"></div>
+              <div class="polaroid-photo" id="polaroid-photo">🌻💛</div>
+              <div class="polaroid-caption" id="polaroid-caption">Nuestra Primavera</div>
+            </div>
+
+            <div class="parchment-footer">
+              <span style="font-size: 0.85rem; color: #78522b;">Con todo mi cariño,</span>
+              <input type="text" class="parchment-sender-input" id="parchment-sender" value="De alguien que te quiere" placeholder="Tu nombre...">
+            </div>
+
+            <!-- Interactive Wax Seal -->
+            <div class="wax-seal-wrapper" id="wax-seal-wrapper" title="Toca el sello para estampar / romper el lacre">
+              <div class="wax-seal gold" id="wax-seal">
+                <span class="wax-seal-stamp-mark">F</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wax color choices -->
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div style="font-size: 0.8rem; color: var(--primary-gold); font-weight: 600;">Color del Lacre Real:</div>
+            <div class="wax-color-picker">
+              <span class="wax-color-dot gold active" data-wax="gold" title="Oro Imperial"></span>
+              <span class="wax-color-dot red" data-wax="red" title="Rubí Pasión"></span>
+              <span class="wax-color-dot emerald" data-wax="emerald" title="Esmeralda Viva"></span>
+              <span class="wax-color-dot violet" data-wax="violet" title="Amatista Real"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="app.closeAllModals()">Guardar Carta 💌</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: MINI-JUEGOS FLORALES ================= -->
+  <div class="modal-backdrop" id="modal-games">
+    <div class="modal-card game-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span style="font-size: 1.6rem;">🎮</span>
+          <h2 class="modal-title">Mini-Juegos & Dinámicas Florales</h2>
+        </div>
+        <button class="btn-close" title="Cerrar">&times;</button>
+      </div>
+
+      <div class="games-tabs">
+        <button class="game-tab-btn active" data-game="oracle">🌼 Oráculo de Pétalos</button>
+        <button class="game-tab-btn" data-game="catcher">🧺 Atrapa Pétalos</button>
+        <button class="game-tab-btn" data-game="constellation">✨ Constelaciones</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Game 1: Daisy Oracle -->
+        <div class="game-panel" id="panel-oracle">
+          <div class="daisy-oracle-wrapper">
+            <div class="daisy-result-text" id="daisy-result-text">Toca un pétalo para deshojar la margarita... 🌼</div>
+            <div class="daisy-svg-container" id="daisy-svg-container"></div>
+            <button class="btn-secondary" onclick="app.oracleGame.reset()">Reiniciar Margarita 🌼</button>
+          </div>
+        </div>
+
+        <!-- Game 2: Petal Catcher -->
+        <div class="game-panel" id="panel-catcher" style="display: none;">
+          <div class="petal-catcher-wrapper">
+            <canvas id="petal-catcher-canvas"></canvas>
+            <div class="petal-catcher-hud">
+              <div class="score-badge">Puntos: <span id="petal-score">0</span></div>
+            </div>
+            <div class="game-start-overlay" id="game-start-overlay">
+              <h3 style="font-family: var(--font-editorial); font-size: 1.4rem; color: var(--primary-gold);">Lluvia de Pétalos Dorados</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; max-width: 320px;">
+                Mueve tu canasta con el ratón o el dedo para atrapar los pétalos y mariposas mágicas.
+              </p>
+              <button class="btn-primary" id="btn-start-petal-game">¡Jugar Ahora! 🧺</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game 3: Constellation -->
+        <div class="game-panel" id="panel-constellation" style="display: none;">
+          <div class="constellation-wrapper">
+            <canvas id="constellation-canvas"></canvas>
+            <div class="constellation-hint">Arrastra líneas entre las estrellas doradas para dibujar la flor cósmica ✨</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="app.closeAllModals()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 4: COMPARTIR & REGALO PERSONALIZADO ================= -->
+  <div class="modal-backdrop" id="modal-share">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span style="font-size: 1.6rem;">🎁</span>
+          <h2 class="modal-title">Compartir Regalo Floral</h2>
+        </div>
+        <button class="btn-close" title="Cerrar">&times;</button>
+      </div>
+
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px;">
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+          Crea un enlace único y personalizado para enviar por WhatsApp o redes. Al abrirlo, la otra persona verá tu nombre, dedicatoria y una caja de regalo interactiva en 3D.
+        </p>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--primary-gold); font-weight: 600; display: block; margin-bottom: 4px;">¿Para quién es?</label>
+          <input type="text" id="share-input-para" class="bouquet-tag-input" placeholder="Nombre de la persona (ej: Lucía)">
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--primary-gold); font-weight: 600; display: block; margin-bottom: 4px;">¿De parte de quién?</label>
+          <input type="text" id="share-input-de" class="bouquet-tag-input" placeholder="Tu nombre o apodo (ej: Carlos)">
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; color: var(--primary-gold); font-weight: 600; display: block; margin-bottom: 4px;">Mensaje o Dedicatoria Especial</label>
+          <textarea id="share-input-mensaje" class="bouquet-tag-input" rows="3" placeholder="Feliz día de las flores amarillas..."></textarea>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+          <input type="checkbox" id="share-is-gift-box" checked style="accent-color: var(--primary-gold); width: 18px; height: 18px;">
+          <label for="share-is-gift-box" style="font-size: 0.85rem; color: var(--text-cream); cursor: pointer;">
+            Abrir con secuencia cinemática de Regalo Sorpresa 3D 🎁
+          </label>
+        </div>
+
+        <div style="margin-top: 8px;">
+          <label style="font-size: 0.8rem; color: var(--primary-gold); font-weight: 600; display: block; margin-bottom: 4px;">Tu Enlace Floral Listo:</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="share-generated-url" readonly class="bouquet-tag-input" style="font-size: 0.8rem; background: rgba(0,0,0,0.5);">
+            <button class="btn-secondary" id="btn-copy-share-url" style="white-space: nowrap; padding: 8px 16px;">Copiar 📋</button>
+          </div>
+        </div>
+
+        <!-- QR Code Display Box -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 16px; border: 1px solid var(--border-glass-light);">
+          <img id="share-qr-image" src="" alt="Código QR del Regalo" style="width: 100px; height: 100px; border-radius: 8px; background: #fff; padding: 4px; display: none;">
+          <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+            <strong style="color: var(--primary-gold); display: block;">Código QR Dinámico 📱</strong>
+            También puedes escanear o mostrar este código QR directamente para que la otra persona abra su regalo.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn-primary" id="btn-share-whatsapp" style="background: linear-gradient(135deg, #25d366, #128c7e); color: white;">
+          Enviar por WhatsApp 💬
+        </button>
+        <button class="btn-secondary" onclick="app.closeAllModals()">Listo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= SURPRISE 3D UNBOXING OVERLAY ================= -->
+  <div class="unboxing-overlay" id="unboxing-overlay">
+    <canvas id="unboxing-particle-canvas"></canvas>
+
+    <div class="unboxing-stage">
+      <div class="unboxing-title">✨ Tienes un Regalo Especial ✨</div>
+
+      <div class="gift-box-3d" id="gift-box-3d">
+        <div class="box-body">
+          <div class="ribbon-v"></div>
+          <div class="ribbon-h"></div>
+          <div class="ribbon-bow">🎀</div>
+        </div>
+      </div>
+
+      <button class="tap-to-open-prompt" id="tap-to-open-prompt">
+        Toca la caja para desatar el lazo 🌻
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Three.js + OrbitControls libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <!-- ES6 Module Entry Point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
