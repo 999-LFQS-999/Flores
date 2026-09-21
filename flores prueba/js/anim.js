@@ -1,5 +1,5 @@
 /**
- * ANIM.JS - ANIMACIONES, LETRAS SINCRONIZADAS ("ERES TÚ" & "NO HAY NADIE MÁS"), AUDIO DUAL & INTERACCIÓN
+ * ANIM.JS - ANIMACIONES, AUDIO DUAL ("ERES TÚ" & "NO HAY NADIE MÁS") & INTERACCIÓN
  */
 
 // 1. Obtener parámetros de la URL (?para=Nombre&de=TuNombre&mensaje=...)
@@ -18,13 +18,17 @@ if (tituloEl) {
   if (para && de) {
     tituloEl.innerHTML = `Para ${para}, con todo mi cariño de ${de} 💛<br><br>Estas flores amarillas son un reflejo de la alegría que traes a mi vida.`;
     if (cardTitle) cardTitle.textContent = `Para ${para} 🌻`;
-    if (cardSender) cardSender.textContent = `— Con amor, ${de} 🌼`;
+    if (cardSender) cardSender.textContent = `ATTE: ${de}`;
   } else if (para) {
     tituloEl.innerHTML = `Para ${para} 💛<br><br>Estas flores amarillas son un reflejo de la alegría que traes a mi vida.`;
     if (cardTitle) cardTitle.textContent = `Para ${para} 🌻`;
+    if (cardSender) cardSender.textContent = `ATTE: Ivan R.`;
   } else if (customMsg) {
     tituloEl.innerHTML = customMsg;
     if (cardMsg) cardMsg.textContent = customMsg;
+    if (cardSender) cardSender.textContent = `ATTE: Ivan R.`;
+  } else {
+    if (cardSender) cardSender.textContent = `ATTE: Ivan R.`;
   }
 }
 
@@ -32,7 +36,7 @@ if (tituloEl) {
 const bgAudio = document.getElementById("bg-audio"); // Eres Tú
 const letterAudio = document.getElementById("letter-audio"); // No Hay Nadie Más
 
-// 3. Sintetizador de Balada Romántica (Web Audio API - Fallback)
+// 3. Sintetizador de Balada Romántica (Web Audio API - Fallback si el archivo de audio falla)
 class ReikBalladAudio {
   constructor() {
     this.ctx = null;
@@ -88,12 +92,6 @@ class ReikBalladAudio {
           osc.stop(this.ctx.currentTime + 2.6);
         }, idx * 280);
       });
-
-      if (!bgAudio || bgAudio.paused || bgAudio.error) {
-        manualTime += 2.8;
-        if (manualTime > 140) manualTime = 0;
-        updateLyricsDisplay(manualTime);
-      }
     };
 
     playChordStep();
@@ -108,23 +106,33 @@ class ReikBalladAudio {
 
 const synthMusic = new ReikBalladAudio();
 
-// Reproducir música de fondo principal
+// Reproducir música de fondo principal ("Eres Tú") inmediatamente
 function playMainMusic() {
   if (bgAudio) {
+    bgAudio.volume = 1.0;
     const playPromise = bgAudio.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
-        synthMusic.start();
+        // En caso de que el navegador exija gesto previo, se activará en el primer clic o toque
       });
     }
-  } else {
-    synthMusic.start();
   }
 }
 
-// Iniciar música en el primer toque/clic
-document.addEventListener("click", () => playMainMusic(), { once: true });
-document.addEventListener("touchstart", () => playMainMusic(), { once: true });
+// Intentar reproducir de inmediato al cargar la página
+playMainMusic();
+document.addEventListener("DOMContentLoaded", playMainMusic);
+window.addEventListener("load", playMainMusic);
+
+// Garantizar reproducción en la primera interacción si el navegador bloquea autoplay estricto
+const unlockAudio = () => {
+  if (bgAudio && bgAudio.paused && (!modalCarta || !modalCarta.classList.contains("open"))) {
+    bgAudio.play().catch(() => synthMusic.start());
+  }
+};
+['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'].forEach(evt => {
+  window.addEventListener(evt, unlockAudio, { once: true, passive: true });
+});
 
 // 5. Generador de estrellas en el cielo nocturno
 function createStars() {

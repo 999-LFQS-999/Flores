@@ -116,3 +116,39 @@ body {
   80% { opacity: 1; }
   100% { transform: translateY(-10vh) translateX(50px) scale(1.2); opacity: 0; }
 }
+
+/* ================= MOBILE RESPONSIVE TWEAKS ================= */
+@media only screen and (max-width: 600px) {
+  body {
+    min-height: 100dvh;
+    padding: 16px;
+  }
+
+  .intro-container {
+    padding: 24px 18px;
+    gap: 22px;
+    max-width: 94vw;
+  }
+
+  .glowing-flower-icon {
+    font-size: 3.8rem;
+  }
+
+  .intro-title {
+    font-size: clamp(1.45rem, 5.8vw, 1.9rem);
+    letter-spacing: 1px;
+    line-height: 1.25;
+  }
+
+  .intro-subtitle {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .btn-reveal {
+    padding: 14px 28px;
+    font-size: 1.02rem;
+    width: 100%;
+    justify-content: center;
+  }
+}

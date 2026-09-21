@@ -85,25 +85,97 @@ body {
   100% { opacity: 1; transform: scale(1.5); }
 }
 
-/* Shooting star / meteor */
+/* Realistic Shooting Stars / Meteors (Straight Diagonal Line with Glowing Head Leading) */
 .shooting-star {
   position: absolute;
-  top: 15%;
-  left: -100px;
-  width: 140px;
+  top: 6%;
+  right: 15%;
+  width: 160px;
   height: 2px;
-  background: linear-gradient(90deg, #ffffff, rgba(255, 215, 0, 0.8), transparent);
-  transform: rotate(-35deg);
+  background: linear-gradient(to right, transparent 0%, rgba(255, 235, 120, 0.25) 40%, rgba(255, 255, 255, 0.95) 90%, #ffffff 100%);
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 14px #ffd700);
   pointer-events: none;
-  filter: drop-shadow(0 0 6px #ffd700);
-  animation: shoot 9s infinite ease-in;
+  transform-origin: right center;
+  animation: meteorFall 7.5s infinite ease-out;
+  opacity: 0;
+  z-index: 1;
 }
 
-@keyframes shoot {
-  0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 0; }
-  10% { opacity: 1; }
-  25% { transform: translateX(110vw) translateY(60vh) rotate(-35deg); opacity: 0; }
-  100% { transform: translateX(110vw) translateY(60vh) rotate(-35deg); opacity: 0; }
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -1.5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ffd700, 0 0 35px #ffffff;
+}
+
+.shooting-star--2 {
+  position: absolute;
+  top: 16%;
+  right: 28%;
+  width: 130px;
+  height: 2px;
+  background: linear-gradient(to right, transparent 0%, rgba(255, 200, 240, 0.25) 40%, rgba(255, 255, 255, 0.95) 90%, #ffffff 100%);
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px #f472b6);
+  pointer-events: none;
+  transform-origin: right center;
+  animation: meteorFall2 10.5s 4s infinite ease-out;
+  opacity: 0;
+  z-index: 1;
+}
+
+.shooting-star--2::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff, 0 0 16px #f472b6;
+}
+
+@keyframes meteorFall {
+  0% {
+    transform: rotate(215deg) translateX(-100px);
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  14% {
+    transform: rotate(215deg) translateX(140vmax);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(215deg) translateX(140vmax);
+    opacity: 0;
+  }
+}
+
+@keyframes meteorFall2 {
+  0% {
+    transform: rotate(210deg) translateX(-80px);
+    opacity: 0;
+  }
+  2% {
+    opacity: 0.9;
+  }
+  12% {
+    transform: rotate(210deg) translateX(130vmax);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(210deg) translateX(130vmax);
+    opacity: 0;
+  }
 }
 
 /* ================= BUTTERFLIES (MARIPOSAS REVOLOTEANDO) ================= */
@@ -240,28 +312,13 @@ body {
 .flowers {
   position: relative;
   transform: scale(0.9);
+  transform-origin: bottom center;
   z-index: 10;
   pointer-events: none; /* Prevents mouse hover reflow and flickering */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
   will-change: transform;
-}
-
-@media only screen and (max-width: 600px) {
-  #lyrics {
-    font-size: 18px;
-    top: 18%;
-    letter-spacing: 1px;
-  }
-  .titulo {
-    font-size: 1rem;
-    letter-spacing: 2px;
-    top: 4%;
-  }
-  .flowers {
-    transform: scale(0.72) translateY(6vmin);
-  }
 }
 
 /* ================= FLOWER 1 ================= */
@@ -610,6 +667,8 @@ body {
 }
 
 .flower__grass--1 {
+  left: -18vmin;
+  bottom: 2vmin;
   animation: moving-grass 2s linear infinite;
 }
 .flower__grass--2 {
@@ -619,6 +678,63 @@ body {
   opacity: 0.8;
   z-index: 0;
   animation: moving-grass--2 1.5s linear infinite;
+}
+.flower__grass--3 {
+  left: -32vmin;
+  bottom: 4vmin;
+  transform: scale(0.75) rotate(-65deg) rotateY(30deg);
+  opacity: 0.85;
+  animation: moving-grass--3 2.4s ease-in-out infinite;
+}
+.flower__grass--4 {
+  left: 32vmin;
+  bottom: 5vmin;
+  transform: scale(0.8) rotate(55deg) rotateY(-160deg);
+  opacity: 0.85;
+  animation: moving-grass--4 2.2s ease-in-out infinite;
+}
+.flower__grass--5 {
+  left: 0vmin;
+  bottom: -2vmin;
+  transform: scale(0.65) rotate(15deg);
+  opacity: 0.9;
+  animation: moving-grass--5 1.8s ease-in-out infinite;
+}
+.flower__grass--6 {
+  left: -8vmin;
+  bottom: -4vmin;
+  transform: scale(0.55) rotate(-25deg);
+  opacity: 0.8;
+  animation: moving-grass--6 2.1s ease-in-out infinite;
+}
+.flower__grass--7 {
+  left: 12vmin;
+  bottom: -4vmin;
+  transform: scale(0.58) rotate(30deg);
+  opacity: 0.8;
+  animation: moving-grass--7 1.9s ease-in-out infinite;
+}
+.flower__grass--8 {
+  left: -4vmin;
+  bottom: 14vmin;
+  transform: scale(0.85) rotate(-10deg);
+  opacity: 0.75;
+  z-index: 0;
+  animation: moving-grass--8 2.5s ease-in-out infinite;
+}
+.flower__grass--9 {
+  left: -40vmin;
+  bottom: 3vmin;
+  transform: scale(0.7) rotate(-75deg);
+  opacity: 0.7;
+  animation: moving-grass--3 2.3s ease-in-out infinite;
+}
+.flower__grass--10 {
+  left: 42vmin;
+  bottom: 4vmin;
+  transform: scale(0.7) rotate(65deg) rotateY(-180deg);
+  opacity: 0.7;
+  animation: moving-grass--4 2.6s ease-in-out infinite;
 }
 
 .flower__grass--top {
@@ -725,9 +841,16 @@ body {
   will-change: transform;
 }
 
+.long-g--0 {
+  bottom: 22vmin;
+  left: -42vmin;
+  transform: scale(1) rotate(-10deg);
+}
+
 .long-g--1 {
   bottom: 0vmin;
-  transform: scale(0.8) rotate(-5deg);
+  left: -22vmin;
+  transform: scale(0.85) rotate(-5deg);
 }
 
 .long-g--1 .leaf--1 {
@@ -737,18 +860,79 @@ body {
   transform: rotate(3deg) rotateY(-180deg);
 }
 
-.long-g--2,
-.long-g--3 {
+.long-g--2 {
   bottom: -3vmin;
   left: -35vmin;
   transform-origin: center;
-  transform: scale(0.6) rotateX(60deg) rotateZ(3deg) rotateY(-180deg);
+  transform: scale(0.65) rotateX(60deg) rotateZ(3deg) rotateY(-180deg);
 }
 
 .long-g--3 {
-  left: -17vmin;
+  left: -15vmin;
   bottom: 0vmin;
   transform: scale(0.8) rotateX(60deg) rotateZ(3deg) rotateY(-180deg);
+}
+
+.long-g--4 {
+  left: 14vmin;
+  bottom: 2vmin;
+  transform: scale(0.85) rotate(14deg);
+}
+
+.long-g--5 {
+  left: 28vmin;
+  bottom: 8vmin;
+  transform: scale(0.9) rotate(24deg);
+}
+
+.long-g--6 {
+  left: 40vmin;
+  bottom: 16vmin;
+  transform: scale(0.8) rotate(32deg);
+}
+
+.long-g--7 {
+  left: -2vmin;
+  bottom: 12vmin;
+  transform: scale(1.05) rotate(4deg);
+  z-index: 0;
+}
+
+.long-g--8 {
+  left: -48vmin;
+  bottom: 14vmin;
+  transform: scale(0.9) rotate(-18deg);
+}
+
+.long-g--9 {
+  left: 6vmin;
+  bottom: 16vmin;
+  transform: scale(1) rotate(8deg);
+  z-index: 0;
+}
+
+.long-g--10 {
+  left: 48vmin;
+  bottom: 12vmin;
+  transform: scale(0.82) rotate(36deg);
+}
+
+.long-g--11 {
+  left: -8vmin;
+  bottom: -4vmin;
+  transform: scale(0.7) rotate(-12deg);
+}
+
+.long-g--12 {
+  left: 20vmin;
+  bottom: -3vmin;
+  transform: scale(0.72) rotate(18deg);
+}
+
+.long-g--13 {
+  left: -28vmin;
+  bottom: 10vmin;
+  transform: scale(0.88) rotate(-22deg);
 }
 
 .long-g .leaf {
@@ -848,6 +1032,36 @@ body {
 @keyframes moving-grass--2 {
   0%, 100% { transform: scale(0.5) rotate(75deg) rotateX(10deg) rotateY(-200deg); }
   50% { transform: scale(0.5) rotate(79deg) rotateX(10deg) rotateY(-200deg); }
+}
+
+@keyframes moving-grass--3 {
+  0%, 100% { transform: scale(0.75) rotate(-65deg) rotateY(30deg); }
+  50% { transform: scale(0.75) rotate(-60deg) rotateY(30deg); }
+}
+
+@keyframes moving-grass--4 {
+  0%, 100% { transform: scale(0.8) rotate(55deg) rotateY(-160deg); }
+  50% { transform: scale(0.8) rotate(50deg) rotateY(-160deg); }
+}
+
+@keyframes moving-grass--5 {
+  0%, 100% { transform: scale(0.65) rotate(15deg); }
+  50% { transform: scale(0.65) rotate(20deg); }
+}
+
+@keyframes moving-grass--6 {
+  0%, 100% { transform: scale(0.55) rotate(-25deg); }
+  50% { transform: scale(0.55) rotate(-20deg); }
+}
+
+@keyframes moving-grass--7 {
+  0%, 100% { transform: scale(0.58) rotate(30deg); }
+  50% { transform: scale(0.58) rotate(25deg); }
+}
+
+@keyframes moving-grass--8 {
+  0%, 100% { transform: scale(0.85) rotate(-10deg); }
+  50% { transform: scale(0.85) rotate(-6deg); }
 }
 
 @keyframes leaf-ans-1 {
@@ -1101,4 +1315,213 @@ body {
 @keyframes moving-flower-6 {
   0%, 100% { transform: rotate(5deg) scale(0.72); }
   50% { transform: rotate(-2deg) scale(0.72); }
+}
+
+/* ================= COMPREHENSIVE RESPONSIVE DESIGN FOR MOBILE & TABLETS ================= */
+
+/* 1. Mobile Portrait & Standard Phones (width <= 768px or portrait orientation) */
+@media only screen and (max-width: 768px), (orientation: portrait) and (max-width: 900px) {
+  body {
+    align-items: flex-end;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* Romantic Title positioned nicely at top */
+  .titulo {
+    top: 3.5%;
+    font-size: clamp(0.88rem, 3.8vw, 1.05rem);
+    letter-spacing: 1px;
+    line-height: 1.42;
+    padding: 0 16px;
+    max-width: 92vw;
+    text-shadow: 0 0 16px rgba(255, 215, 0, 0.8), 0 0 28px rgba(245, 158, 11, 0.5);
+  }
+
+  /* Scale and center the flower bouquet so it fills the screen majestically */
+  .flowers {
+    transform: scale(1.36) translateY(2vh);
+    transform-origin: bottom center;
+  }
+
+  /* Flowers lateral positioning for compact screens */
+  .flower--4 {
+    left: -20vmin;
+    transform: rotate(-22deg) scale(0.82);
+  }
+  .flower--5 {
+    left: 22vmin;
+    transform: rotate(22deg) scale(0.85);
+  }
+  .flower--6 {
+    left: 4vmin;
+    transform: rotate(4deg) scale(0.7);
+  }
+
+  /* Non-flowering foliage framing inside mobile viewport */
+  .long-g--0 { left: -25vmin; transform: scale(0.85) rotate(-10deg); }
+  .long-g--1 { left: -16vmin; transform: scale(0.8) rotate(-5deg); }
+  .long-g--2 { left: -22vmin; transform: scale(0.6) rotateX(50deg); }
+  .long-g--3 { left: -10vmin; transform: scale(0.7) rotateX(50deg); }
+  .long-g--4 { left: 10vmin; transform: scale(0.75) rotate(12deg); }
+  .long-g--5 { left: 18vmin; transform: scale(0.8) rotate(18deg); }
+  .long-g--6 { left: 24vmin; transform: scale(0.75) rotate(22deg); }
+  .long-g--7 { left: -2vmin; transform: scale(0.9) rotate(4deg); }
+  .long-g--8 { left: -28vmin; transform: scale(0.75) rotate(-15deg); }
+  .long-g--9 { left: 4vmin; transform: scale(0.85) rotate(8deg); }
+  .long-g--10 { left: 28vmin; transform: scale(0.75) rotate(24deg); }
+  .long-g--11 { left: -6vmin; transform: scale(0.65) rotate(-10deg); }
+  .long-g--12 { left: 14vmin; transform: scale(0.68) rotate(14deg); }
+  .long-g--13 { left: -18vmin; transform: scale(0.8) rotate(-18deg); }
+
+  /* Grass blades adjustments */
+  .flower__grass--3 { left: -22vmin; transform: scale(0.65) rotate(-50deg); }
+  .flower__grass--4 { left: 22vmin; transform: scale(0.68) rotate(45deg); }
+  .flower__grass--9 { left: -26vmin; transform: scale(0.6) rotate(-60deg); }
+  .flower__grass--10 { left: 26vmin; transform: scale(0.6) rotate(50deg); }
+
+  /* Celestial sky elements */
+  .moon-glow {
+    width: 75px;
+    height: 75px;
+    top: 5.5%;
+    right: 6%;
+    filter: blur(6px);
+  }
+  .shooting-star {
+    top: 5%;
+    right: 8%;
+    width: 110px;
+  }
+  .shooting-star--2 {
+    top: 12%;
+    right: 18%;
+    width: 90px;
+  }
+
+  /* Butterflies on Mobile */
+  .butterfly {
+    transform: scale(0.78);
+  }
+  .butterfly-1 { left: 12%; bottom: 32vmin; }
+  .butterfly-2 { left: 68%; bottom: 40vmin; }
+  .butterfly-3 { left: 42%; bottom: 52vmin; }
+  .butterfly-4 { left: 28%; bottom: 22vmin; }
+
+  /* Controls Dock */
+  .flower-controls-dock {
+    bottom: 16px;
+    padding: 6px 14px;
+    gap: 8px;
+    z-index: 250;
+  }
+  .f-btn {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    gap: 4px;
+  }
+
+  /* Dedication Letter Modal Card */
+  .letter-popup-overlay {
+    padding: 12px;
+  }
+  .letter-popup-card {
+    width: 94vw;
+    max-width: 440px;
+    max-height: 82vh;
+    padding: 24px 18px 20px;
+    border-radius: 20px;
+  }
+  .popup-close-btn {
+    top: 10px;
+    right: 14px;
+    font-size: 1.5rem;
+  }
+  .card-title {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+  }
+  .card-message {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+  .card-sender {
+    font-size: 0.98rem;
+    padding-top: 6px;
+  }
+
+  /* Butterflies around Letter Card on Mobile */
+  .card-butterfly-3d {
+    transform: scale(0.72);
+  }
+  .cb3d-1 { left: 1%; top: 8%; }
+  .cb3d-2 { left: 1%; top: 72%; }
+  .cb3d-3 { right: 1%; top: 10%; }
+  .cb3d-4 { right: 1%; bottom: 10%; }
+}
+
+/* 2. Small Mobile Screens (iPhone SE, Galaxy A, width <= 380px) */
+@media only screen and (max-width: 380px) {
+  .titulo {
+    font-size: 0.82rem;
+    line-height: 1.35;
+    top: 2.8%;
+  }
+  .flowers {
+    transform: scale(1.22) translateY(2vh);
+  }
+  .flower-controls-dock {
+    bottom: 12px;
+    padding: 5px 10px;
+    gap: 6px;
+  }
+  .f-btn {
+    padding: 6px 10px;
+    font-size: 0.74rem;
+  }
+  .letter-popup-card {
+    padding: 20px 14px 16px;
+    max-height: 84vh;
+  }
+  .card-title {
+    font-size: 1.22rem;
+  }
+  .card-message {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+}
+
+/* 3. Mobile Landscape View (height <= 520px and landscape orientation) */
+@media only screen and (max-height: 520px) and (orientation: landscape) {
+  .titulo {
+    top: 2%;
+    font-size: 0.85rem;
+    line-height: 1.25;
+    letter-spacing: 1px;
+  }
+  .flowers {
+    transform: scale(0.68) translateY(4vmin);
+  }
+  .flower-controls-dock {
+    bottom: 8px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+  .f-btn {
+    padding: 6px 12px;
+    font-size: 0.74rem;
+  }
+  .letter-popup-card {
+    max-height: 92vh;
+    padding: 16px 16px 12px;
+  }
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+  .card-message {
+    font-size: 0.86rem;
+    line-height: 1.48;
+  }
 }
